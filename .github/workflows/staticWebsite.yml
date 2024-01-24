@@ -93,6 +93,6 @@ jobs:
           aws lambda update-function-code --function-name $LAMBDA_FUNCTION --zip-file fileb://api.zip  
           
           echo "Clear the cache"
-          # echo export DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[*].{id:Id,origin:Origins.Items[0].Id}[?origin=='${{ env.DYNAMIC_DOMAIN_NAME }}'].id" --output text)
+          echo export DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[*].{id:Id,origin:Origins.Items[0].Id}[?origin=='${{ env.DYNAMIC_DOMAIN_NAME }}'].id" --output text)
           export DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[*].{id:Id,origin:Origins.Items[0].Id}[?origin=='${{ env.DYNAMIC_DOMAIN_NAME }}'].id" --output text)
           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
