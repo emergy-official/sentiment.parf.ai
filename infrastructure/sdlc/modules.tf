@@ -18,6 +18,8 @@ module "staticWebsite" {
   region_name = data.aws_region.current.name
   # Send the current user id
   aws_account_id = data.aws_caller_identity.current.account_id
+  # Add permissions to the github action role
+  github_action_role_id = aws_iam_role.github_action_role.id
 }
 
 output "cloudfront_record_ssrWebsite" {
