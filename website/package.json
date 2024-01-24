@@ -1,0 +1,22 @@
+{
+  "name": "website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build && mv dist/posts.json ../api/",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.3.3",
+    "@astrojs/node": "^7.0.4",
+    "@astrojs/preact": "^3.1.0",
+    "@astrojs/rss": "^4.0.1",
+    "astro": "^4.0.6",
+    "preact": "^10.19.3",
+    "sass": "^1.69.7",
+    "typescript": "^5.3.3"
+  }
+}

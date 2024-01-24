@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SearchCMP from "../components/Search";
+import BlogPost from "../components/BlogPost.astro";
+const pageTitle = "Search";
+const allPosts = await getCollection("posts");
+/*
+
+1. Contact the API
+2. API is looking within it's post title and post content
+
+*/
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <SearchCMP client:only />
+</BaseLayout>
