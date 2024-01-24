@@ -1,6 +1,6 @@
 # Create Lambda function to perform CRUD operations on DynamoDB table    
 resource "aws_lambda_function" "sentiment_api" {
-  function_name = "${var.prefix}_sentiment_api"
+  function_name = "${var.prefix}_api"
   handler       = "index.handler"
   role          = aws_iam_role.lambda_exec_sentiment_api.arn
   runtime       = "nodejs20.x"
