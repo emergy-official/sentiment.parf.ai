@@ -72,7 +72,6 @@ resource "aws_cloudfront_distribution" "website" {
     domain_name = replace(replace(aws_api_gateway_deployment.website.invoke_url, "https://", ""), "/api", "")
     origin_id   = aws_api_gateway_rest_api.website.id
 
-    origin_path = "/api"
     custom_origin_config {
       http_port                = "80"
       https_port               = "443"

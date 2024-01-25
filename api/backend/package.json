@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "prepare:layer": "rm -rf ../dist && mkdir -p ../dist/nodejs && cp package.json ../dist/nodejs && cd ../dist/nodejs && npm install --omit=dev",
+    "prepare:lambda": "tsc",
+    "prepare:all": "npm run prepare:layer && npm run prepare:lambda"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch": "^3.499.0",
+    "@aws-sdk/client-dynamodb": "^3.499.0",
+    "@aws-sdk/client-ses": "^3.499.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.6"
+  }
+}
