@@ -11,6 +11,8 @@ on:
 # Define environment variables
 env:
   AWS_REGION: us-east-1
+  DEV_ACCOUNT_ID: 267341338450
+  PROD_ACCOUNT_ID: 258317103062
   ASSUME_ROLE_ARN_DEV: arn:aws:iam::267341338450:role/github-dev--sentiment
   ASSUME_ROLE_ARN_PROD: arn:aws:iam::258317103062:role/github-prod--sentiment
   WEBSITE_FOLDER: website
@@ -47,7 +49,18 @@ jobs:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Deploy to s3
+      - name: Prepare AWS
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/dev" ]; then
+            echo "ASSUME_ROLE_ARN=$ASSUME_ROLE_ARN_DEV" >> $GITHUB_ENV
+            echo "ACCOUNT_ID=$DEV_ACCOUNT_ID" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" = "refs/heads/prod" ]; then
+            echo "ASSUME_ROLE_ARN=$ASSUME_ROLE_ARN_PROD" >> $GITHUB_ENV
+            echo "ACCOUNT_ID=$PROD_ACCOUNT_ID" >> $GITHUB_ENV
+          else
+            export ACCOUNT_ID=""
+          fi
+      - name: Build & Push Docker to AWS ECR
         run: |
           echo "Assume the proper AWS Account from the one already assumed"
           eval $(aws sts assume-role --role-arn "${{ env.ASSUME_ROLE_ARN }}" --role-session-name github_session | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
@@ -55,11 +68,16 @@ jobs:
           echo "Building..."
           cd api/sentiment
 
-          echo $(ls)
-
-          echo "Docker build:"
           export IMG_VERSION=latest
           docker logout public.ecr.aws
           docker build --platform linux/amd64 -t python-scikit-learn:$IMG_VERSION .
-          
 
+          echo "Login to ECR"
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/
+
+          docker tag python-scikit-learn:$IMG_VERSION "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/python-scikit-learn:latest
+          echo "Push to ECR"
+          docker push "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/python-scikit-learn:latest
+
+          echo "Update lambda with new ECR Image"
+          aws lambda update-function-code --function-name $LAMBDA_FUNCTION --image-uri "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/python-scikit-learn:latest --region us-east-1
