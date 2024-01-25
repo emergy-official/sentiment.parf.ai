@@ -10,7 +10,7 @@ resource "aws_iam_role_policy" "update_lambda_policy" {
         "Action" : [
           "lambda:UpdateFunctionCode"
         ],
-        "Resource" : "${aws_lambda_function.feedback_api.arn}"
+        "Resource" : "${aws_lambda_function.sentiment_api.arn}"
       }
     ]
   })
