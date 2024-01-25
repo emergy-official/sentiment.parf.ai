@@ -24,5 +24,5 @@ def handler(event, context):
     # Return the predicted sentiment  
     return {
         'statusCode': 200,
-        'body': json.dumps({'sentiment': round(prediction[0], 1)})
+        'body': json.dumps({'sentiment': round(prediction[0], 2)})
     }
