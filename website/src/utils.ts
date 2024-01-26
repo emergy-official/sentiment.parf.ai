@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { showFeedbackLoading } from "./stores/feedbacks"
 
 const getAPIURL = () => {
     return document.location.host.includes("localhost") ? "https://dev.sentiment.parf.ai/api" : "/api"

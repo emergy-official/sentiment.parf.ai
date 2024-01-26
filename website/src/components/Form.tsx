@@ -2,7 +2,6 @@ import { useState } from "preact/hooks";
 import { sendPredictRequest, sendFeedbackRequest, getLatestFeedbacks, getRandomElement } from "../utils";
 
 import { feedbacks, showFeedbackLoading } from "./../stores/feedbacks"
-import { useStore } from '@nanostores/preact';
 
 export default function Form() {
 
@@ -34,9 +33,8 @@ export default function Form() {
   const [showFeedback, setShowFeedback] = useState(false);
 
   const isPositive = Math.round(prediction) == 1
-  const $feedbacks = useStore(feedbacks);
 
-  const handleInput = (e) => {
+  const handleInput = (e:any) => {
     const target = e.target as HTMLTextAreaElement;
 
     setPrediction(-1)

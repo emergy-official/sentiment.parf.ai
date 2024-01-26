@@ -1,11 +1,11 @@
-import { h } from 'preact';
+// import { h } from 'preact';
 import { useEffect, useRef } from 'preact/hooks';
 import Chart from 'chart.js/auto';
 
 function formatDate(datestring: string) {
     const date = new Date(parseInt(`${datestring}`))
-    const day = `${date.getDate()}`.padStart(2, '0');
-    const month = `${date.getMonth() + 1}`.padStart(2, '0');
+    // const day = `${date.getDate()}`.padStart(2, '0');
+    // const month = `${date.getMonth() + 1}`.padStart(2, '0');
     const hours = `${date.getHours()}`.padStart(2, '0');
     const minutes = `${date.getMinutes()}`.padStart(2, '0');
 
@@ -16,11 +16,11 @@ function formatDate(datestring: string) {
 const DivergingBarChart = ({ fbData }) => {
 
 
-  let feedbackData = fbData?.map((e: any) => ({
-    feedback: e.feedback ? 1 : -1,
-    text: e.text,
-    timestamp: e.timestamp
-  })).reverse();
+    let feedbackData = fbData?.map((e: any) => ({
+        feedback: e.feedback ? 1 : -1,
+        text: e.text,
+        timestamp: e.timestamp
+    })).reverse();
 
     const chartRef: any = useRef(null);
 
@@ -32,7 +32,7 @@ const DivergingBarChart = ({ fbData }) => {
         let negativeDataset: any = [];
         let labels: any = [];
 
-        feedbackData.forEach((item, idx) => {
+        feedbackData.forEach((item: any) => {
 
             labels.push(formatDate(item.timestamp));
 
@@ -75,7 +75,7 @@ const DivergingBarChart = ({ fbData }) => {
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: function (context) {
+                        label: function (context: any) {
                             const index = context.dataIndex;
                             return `${feedbackData[index].text}`;
                         },

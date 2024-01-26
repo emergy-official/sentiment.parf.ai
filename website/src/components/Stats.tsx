@@ -13,9 +13,9 @@ export default function Stats() {
   }
   const [expandedRows, setExpandedRows]: any = useState([]);
 
-  const toggleRowExpansion = (index) => {
+  const toggleRowExpansion = (index:number) => {
     if (expandedRows.includes(index)) {
-      setExpandedRows(expandedRows.filter((i) => i !== index));
+      setExpandedRows(expandedRows.filter((i:number) => i !== index));
     } else {
       setExpandedRows([...expandedRows, index]);
     }
