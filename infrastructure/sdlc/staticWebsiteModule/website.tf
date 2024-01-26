@@ -53,6 +53,35 @@ resource "aws_s3_bucket_versioning" "website" {
 #################################################
 # 2. CLOUDFRONT TO ALLOW PUBLIC ACCESS WITH CACHE
 #################################################
+
+resource "aws_cloudfront_response_headers_policy" "website" {
+  name = "${var.prefix}-website-cors-policy"
+
+  cors_config {
+    # If set to true, allow headers need to be set
+    access_control_allow_credentials = false
+
+    access_control_allow_headers {
+      items = ["*"]
+    }
+    access_control_expose_headers {
+      items = ["*"]
+    }
+
+    access_control_allow_methods {
+      items = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    }
+
+    access_control_allow_origins {
+      items = ["*"]
+    }
+
+    access_control_max_age_sec = 600
+
+    origin_override = true
+  }
+}
+
 resource "aws_cloudfront_distribution" "website" {
   origin {
 
@@ -114,6 +143,7 @@ resource "aws_cloudfront_distribution" "website" {
     allowed_methods  = ["POST", "HEAD", "OPTIONS", "GET", "PUT", "PATCH", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = aws_api_gateway_rest_api.website.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.website.id
 
     forwarded_values {
       query_string = false

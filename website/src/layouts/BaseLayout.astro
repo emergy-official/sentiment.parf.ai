@@ -1,9 +1,8 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import "../styles/global.scss";
 const { pageTitle } = Astro.props;
+import "@fortawesome/fontawesome-svg-core/styles.css";
 ---
 
 <html lang="en">
@@ -16,17 +15,17 @@ const { pageTitle } = Astro.props;
     <ViewTransitions />
   </head>
   <body>
-    <Header />
     <div class="main-container">
-      <h1 transition:animate="slide">{pageTitle}</h1>
       <slot />
     </div>
-    <!-- <Footer /> -->
+
     <script>
-      import "../scripts/menu.js";
-      import { enableStickyObserver } from "../scripts/sticky-observer";
-      enableStickyObserver();
+      import { library, config, dom } from "@fortawesome/fontawesome-svg-core";
+      import { faSpinnerScale } from "@fortawesome/pro-solid-svg-icons";
+
+      config.autoAddCss = false;
+      library.add(faSpinnerScale);
+      dom.watch();
     </script>
-    <script is:inline src="/titles.js"></script>
   </body>
 </html>

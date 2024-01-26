@@ -48,7 +48,10 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install Node.js module dependencies
-        run: cd $WEBSITE_FOLDER && npm install
+        run: |
+          cd $WEBSITE_FOLDER && npm install
+          npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+          npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONT_AWESOME_TOKEN }}
 
       - name: Update the robots.txt and astro.config.mjs
         run: |
