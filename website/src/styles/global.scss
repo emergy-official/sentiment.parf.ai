@@ -31,6 +31,8 @@ body {
   max-width: 120ch;
   padding: 1rem;
   line-height: 1.5;
+  min-width: 400px;
+
 }
 
 * {
@@ -43,12 +45,10 @@ body {
   align-items: center;
   height: 100vh;
 }
-
 .form {
   display: flex;
   flex: 0.8;
   flex-direction: column;
-  min-width: 200px;
 }
 
 .form h1 {
@@ -156,4 +156,81 @@ button.disagree {
 .icon-visible svg,
 .icon-visible i {
   display: inherit !important;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+// Table stats
+table {  
+  margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;  
+  font-family: Arial, sans-serif;  
+}  
+  
+th, td {  
+  padding: 8px;  
+  text-align: left;  
+}  
+  
+  
+th {  
+  font-weight: bold;  
+  letter-spacing: 2px;
+}  
+  
+tr:nth-child(even) {  
+  background-color: #f9f9f9;  
+}  
+  
+td {  
+  max-width: 200px;  
+  overflow: hidden;  
+  text-overflow: ellipsis;  
+  transition: max-width 0.3s ease;  
+}  
+tfoot td {  
+  padding-top: 8px;  
+  font-weight: bold;  
+  white-space: normal;  
+  max-width: none;  
+}
+th {
+  background-color: rgba(220, 220, 220, .2);
+}
+tr {
+  border: 1px solid #f1f5fa;  
+}
+tr.correct {
+  background: rgba(53, 219, 178, .2);
+}
+tr.incorrect {
+  background: rgba(220, 94, 94, .2);
+}
+  
+@media (max-width: 600px) {  
+  table {  
+    font-size: 12px;  
+  }  
+}  
+
+.pointer {
+  cursor: pointer;
+}
+
+.loading svg, .loading i{
+  font-size: 40px;
+  display: none;
+}
+
+.loading .icon-visible svg,
+.loading .icon-visible i {
+  display: inherit !important;
+}
+a.github {
+  display: block;
+  text-align: center;
+  color: black;
 }

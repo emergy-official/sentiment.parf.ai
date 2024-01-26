@@ -29,15 +29,30 @@ dependencies:
   '@fortawesome/react-fontawesome':
     specifier: ^0.2.0
     version: 0.2.0(@fortawesome/fontawesome-svg-core@6.5.1)(react@18.2.0)
+  '@nanostores/preact':
+    specifier: ^0.5.0
+    version: 0.5.0(nanostores@0.9.5)(preact@10.19.3)
   astro:
     specifier: ^4.0.6
     version: 4.0.6(sass@1.70.0)(typescript@5.3.3)
   axios:
     specifier: ^1.6.7
     version: 1.6.7
+  chart.js:
+    specifier: ^4.4.1
+    version: 4.4.1
+  chartjs-plugin-datalabels:
+    specifier: ^2.2.0
+    version: 2.2.0(chart.js@4.4.1)
+  nanostores:
+    specifier: ^0.9.5
+    version: 0.9.5
   preact:
     specifier: ^10.19.3
     version: 10.19.3
+  preact-chartjs-2:
+    specifier: ^1.0.3
+    version: 1.0.3(chart.js@4.4.1)
   sass:
     specifier: ^1.69.7
     version: 1.70.0
@@ -727,6 +742,21 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: false
 
+  /@kurkle/color@0.3.2:
+    resolution: {integrity: sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==}
+    dev: false
+
+  /@nanostores/preact@0.5.0(nanostores@0.9.5)(preact@10.19.3):
+    resolution: {integrity: sha512-Zq5DEAY+kIfwJ1NPd43D1mpsbISuiD6N/SuTHrt/8jUoifLwXaReaZMAnvkvbIGOgcB1Hy++A9jZix2taNNYxQ==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0
+      preact: '>=10.0.0'
+    dependencies:
+      nanostores: 0.9.5
+      preact: 10.19.3
+    dev: false
+
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -928,6 +958,14 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@skatejs/renderer-preact@0.1.0(preact@8.5.3):
+    resolution: {integrity: sha512-dtiG1tbvRki2LGXx7OF/rXVCwS5XgUjB8UCin2gbTW3S0wKLTXHngDEJ0tX4g/PEPjJJVP2ENHY4vLoqwloIAg==}
+    peerDependencies:
+      preact: ^8.0.0
+    dependencies:
+      preact: 8.5.3
+    dev: false
 
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1367,6 +1405,21 @@ packages:
 
   /character-entities@2.0.2:
     resolution: {integrity: sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==}
+    dev: false
+
+  /chart.js@4.4.1:
+    resolution: {integrity: sha512-C74QN1bxwV1v2PEujhmKjOZ7iUM4w6BWs23Md/6aOZZSlwMzeCIDGuZay++rBgChYru7/+QFeoQW0fQoP534Dg==}
+    engines: {pnpm: '>=7'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
+
+  /chartjs-plugin-datalabels@2.2.0(chart.js@4.4.1):
+    resolution: {integrity: sha512-14ZU30lH7n89oq+A4bWaJPnAG8a7ZTk7dKf48YAzMvJjQtjrgg5Dpk9f+LbjCF6bpx3RAGTeL13IXpKQYyRvlw==}
+    peerDependencies:
+      chart.js: '>=3.0.0'
+    dependencies:
+      chart.js: 4.4.1
     dev: false
 
   /chokidar@3.5.3:
@@ -2330,6 +2383,10 @@ packages:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: false
 
+  /lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
+
   /log-symbols@5.1.0:
     resolution: {integrity: sha512-l0x2DvrW294C9uDCoQe1VSU4gf529FkSZ6leBl4TiqZH/e+0R7hSfHQBNut2mNygDgHwvYHfFLn6Oxb3VWj2rA==}
     engines: {node: '>=12'}
@@ -2856,6 +2913,11 @@ packages:
     hasBin: true
     dev: false
 
+  /nanostores@0.9.5:
+    resolution: {integrity: sha512-Z+p+g8E7yzaWwOe5gEUB2Ox0rCEeXWYIZWmYvw/ajNYX8DlXdMvMDj8DWfM/subqPAcsf8l8Td4iAwO1DeIIRQ==}
+    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+    dev: false
+
   /napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     requiresBuild: true
@@ -3097,6 +3159,18 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
+  /preact-chartjs-2@1.0.3(chart.js@4.4.1):
+    resolution: {integrity: sha512-bYJOHUZnXo56/IJ/9xConEQHRo1OEwxWDW2EQTBz13w1JSZQNXcSUAcoQYeb2vIyAhcRp//s5LgfZknaiQ4Fjw==}
+    peerDependencies:
+      chart.js: ^2.3
+    dependencies:
+      '@skatejs/renderer-preact': 0.1.0(preact@8.5.3)
+      chart.js: 4.4.1
+      lodash: 4.17.21
+      preact: 8.5.3
+      skatejs: 5.2.4
+    dev: false
+
   /preact-render-to-string@6.3.1(preact@10.19.3):
     resolution: {integrity: sha512-NQ28WrjLtWY6lKDlTxnFpKHZdpjfF+oE6V4tZ0rTrunHrtZp6Dm0oFrcJalt/5PNeqJz4j1DuZDS0Y6rCBoqDA==}
     peerDependencies:
@@ -3116,6 +3190,11 @@ packages:
 
   /preact@10.19.3:
     resolution: {integrity: sha512-nHHTeFVBTHRGxJXKkKu5hT8C/YWBkPso4/Gad6xuj5dbptt9iF9NZr9pHbPhBrnT2klheu7mHTxTZ/LjwJiEiQ==}
+    dev: false
+
+  /preact@8.5.3:
+    resolution: {integrity: sha512-O3kKP+1YdgqHOFsZF2a9JVdtqD+RPzCQc3rP+Ualf7V6rmRDchZ9MJbiGTT7LuyqFKZqlHSOyO/oMFmI2lVTsw==}
+    requiresBuild: true
     dev: false
 
   /prebuild-install@7.1.1:
@@ -3573,6 +3652,10 @@ packages:
 
   /sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+    dev: false
+
+  /skatejs@5.2.4:
+    resolution: {integrity: sha512-Ygd4bB6VTiSFeVpry9R/EWej+/PGrYhO1eMMwsxDaBLMkzXfZRm0CHvggb7RAMEr0VCMc5cBt58I6IU0q6GLvw==}
     dev: false
 
   /source-map-js@1.0.2:

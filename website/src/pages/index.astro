@@ -2,14 +2,15 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Form from "../components/Form";
+import Stats from "../components/Stats";
 const pageTitle = "Sentiment Analysis";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
   <div class="form-container">
-    <Form client:only>
+    <Form client:only />
   </div>
   <div class="stats-container">
-    Stats
+    <Stats client:only/>
   </div>
 </BaseLayout>
