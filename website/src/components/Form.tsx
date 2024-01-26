@@ -1,12 +1,12 @@
 import { useState } from "preact/hooks";
 import { sendPredictRequest } from "../utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Greeting() {
   const [text, setText] = useState("Now the wine producers join the revolt destroying foreign wine shipments which undercut locally produced wine, which is subject to agricultural net zero taxes! ‘Global equality’ really means local collapse! The farmers know it 👀");
   const [prediction, setPrediction] = useState(-10);
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
+
   const [loadingApproval, setLoadingApproval] = useState(false);
   const [loadingRefusal, setLoadingRefusal] = useState(false);
 
@@ -18,13 +18,26 @@ export default function Greeting() {
   };
 
   const handlePredictBtn = async () => {
-
     setLoadingPrediction(true)
     const res = await sendPredictRequest(text)
-    if(res?.sentiment) {
+    if (res?.sentiment) {
       setPrediction(res.sentiment)
     }
     setLoadingPrediction(false)
+    console.log(text)
+  };
+
+  const handleFeedbackBtn = async (isPositive: boolean) => {
+    if (isPositive) {
+      setLoadingApproval(true)
+      await sendPredictRequest(text, prediction, isPositive)
+      setLoadingApproval(false)
+    } else {
+      setLoadingRefusal(true)
+      await sendPredictRequest(text, prediction, isPositive)
+      setLoadingRefusal(false)
+    }
+
 
     console.log(text)
   };
@@ -36,6 +49,7 @@ export default function Greeting() {
       {prediction == -10 ?
 
         <button class={`predict ${loadingPrediction ? "icon-visible" : ""}`} disabled={loadingPrediction} onClick={handlePredictBtn}>
+          {/* FontAwesome Hack */}
           {loadingPrediction ? "" : "Predict"}
           <i class="fa-solid fa-spinner-scale fa-spin-pulse"></i>
         </button> :
@@ -45,7 +59,11 @@ export default function Greeting() {
             Text is {isPositive ? `positive` : `negative`} ({prediction})
           </span>
           <div class="feedback">
-            <button class="agree">Correct</button>
+            <button class={`agree ${loadingPrediction ? "icon-visible" : ""}`} disabled={loadingApproval} onClick={() => { handleFeedbackBtn(true) }}>
+              {loadingApproval ? "" : "Correct"}
+              <i class="fa-solid fa-spinner-scale fa-spin-pulse"></i>
+              Correct
+            </button>
             <button class="disagree">Incorrect</button>
           </div>
         </div>}

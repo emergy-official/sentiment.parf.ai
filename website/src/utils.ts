@@ -14,3 +14,13 @@ export const sendPredictRequest = async (text: string) => {
         return null
     }
 }
+export const sendFeedbackRequest = async (text: string, sentiment: number, feedback: boolean) => {
+    try {
+        const res: any = await axios.post(`${getAPIURL()}/sentiment/feedback`, { text, sentiment, feedback })
+        return res?.data
+    } catch (e) {
+        console.error("Error", e)
+        alert(`Error response of the API ${e.message}`)
+        return null
+    }
+}
