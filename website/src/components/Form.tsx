@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { sendPredictRequest } from "../utils";
+import { sendPredictRequest, sendFeedbackRequest } from "../utils";
 
 export default function Greeting() {
   const [text, setText] = useState("Now the wine producers join the revolt destroying foreign wine shipments which undercut locally produced wine, which is subject to agricultural net zero taxes! ‘Global equality’ really means local collapse! The farmers know it 👀");
@@ -30,11 +30,11 @@ export default function Greeting() {
   const handleFeedbackBtn = async (isPositive: boolean) => {
     if (isPositive) {
       setLoadingApproval(true)
-      await sendPredictRequest(text, prediction, isPositive)
+      await sendFeedbackRequest(text, prediction, isPositive)
       setLoadingApproval(false)
     } else {
       setLoadingRefusal(true)
-      await sendPredictRequest(text, prediction, isPositive)
+      await sendFeedbackRequest(text, prediction, isPositive)
       setLoadingRefusal(false)
     }
 
@@ -59,12 +59,16 @@ export default function Greeting() {
             Text is {isPositive ? `positive` : `negative`} ({prediction})
           </span>
           <div class="feedback">
-            <button class={`agree ${loadingPrediction ? "icon-visible" : ""}`} disabled={loadingApproval} onClick={() => { handleFeedbackBtn(true) }}>
+            <button class={`agree ${loadingApproval ? "icon-visible" : ""}`} disabled={loadingApproval} onClick={() => { handleFeedbackBtn(true) }}>
               {loadingApproval ? "" : "Correct"}
               <i class="fa-solid fa-spinner-scale fa-spin-pulse"></i>
               Correct
             </button>
-            <button class="disagree">Incorrect</button>
+            <button class={`disagree ${setLoadingRefusal ? "icon-visible" : ""}`} disabled={setLoadingRefusal} onClick={() => { handleFeedbackBtn(false) }}>
+              {setLoadingRefusal ? "" : "Incorrect"}
+              <i class="fa-solid fa-spinner-scale fa-spin-pulse"></i>
+              Incorrect
+            </button>
           </div>
         </div>}
     </div>

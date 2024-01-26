@@ -20,9 +20,8 @@ def handler(event, context):
   
     # Make sentiment prediction  
     prediction = model.predict(X)  
-    print(prediction)
     # Return the predicted sentiment  
     return {
         'statusCode': 200,
-        # 'body': json.dumps({'sentiment': round(prediction[0], 2)})
+        'body': json.dumps({'sentiment': prediction[0].item()})
     }
