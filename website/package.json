@@ -25,7 +25,6 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "nanostores": "^0.9.5",
     "preact": "^10.19.3",
-    "preact-chartjs-2": "^1.0.3",
     "sass": "^1.69.7",
     "typescript": "^5.3.3"
   }
