@@ -49,7 +49,10 @@ resource "aws_iam_role_policy" "s3_pull" {
           "s3:GetObject",
           "s3:ListBucket"
         ],
-        "Resource" : "${aws_s3_bucket.artifacts[count.index].arn}/*"
+        "Resource" : [
+          aws_s3_bucket.artifacts[count.index].arn,
+          "${aws_s3_bucket.artifacts[count.index].arn}/*"
+          ]
       }
     ]
   })
