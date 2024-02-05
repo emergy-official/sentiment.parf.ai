@@ -71,22 +71,23 @@ jobs:
           echo "Building..."
           cd api/sentiment
 
+          export PREVIOUS_AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          export PREVIOUS_AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          export PREVIOUS_AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
+
           export AWS_ACCESS_KEY_ID="${{ secrets.AWS_KEY_DOWNLOAD_ARTIFACT }}"
           export AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_DOWNLOAD_ARTIFACT }}"
           export AWS_REGION=us-east-1
           export AWS_SESSION_TOKEN=""
 
-          echo "$AWS_SECRET_ACCESS_KEY" > data.txt
-          echo "$AWS_SECRET_ACCESS_KEY" >> data.txt
-
-          echo $(cat data.txt)
-          
           rm -rf artifacts mlruns
           export FILE_PATH="553495617669467156/3a09d01665a841c2a42e2ea3a58ba05a"
           aws s3 cp "s3://artifact-dev.sentiment.parf.ai/$FILE_PATH" ./ --recursive
 
-          export AWS_ACCESS_KEY_ID=
-          export AWS_SECRET_ACCESS_KEY=
+
+          export AWS_ACCESS_KEY_ID=$PREVIOUS_AWS_ACCESS_KEY_ID
+          export AWS_SECRET_ACCESS_KEY=$PREVIOUS_AWS_SECRET_ACCESS_KEY
+          export PREVIOUS_AWS_SESSION_TOKEN=$PREVIOUS_AWS_SESSION_TOKEN
 
           echo "Assume the proper AWS Account from the one already assumed"
           eval $(aws sts assume-role --role-arn "${{ env.ASSUME_ROLE_ARN }}" --role-session-name github_session | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
