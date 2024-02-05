@@ -68,16 +68,17 @@ jobs:
           fi
       - name: Build & Push Docker to AWS ECR
         run: |
+
+          echo "Assume the proper AWS Account from the one already assumed"
+          eval $(aws sts assume-role --role-arn "${{ env.ASSUME_ROLE_ARN }}" --role-session-name github_session | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
+          echo $(aws sts get-caller-identity)
+
           echo "Building..."
           cd api/sentiment
 
           rm -rf artifacts mlruns
           export FILE_PATH="553495617669467156/3a09d01665a841c2a42e2ea3a58ba05a"
           aws s3 cp "s3://artifact-dev.sentiment.parf.ai/$FILE_PATH" ./ --recursive
-
-          echo "Assume the proper AWS Account from the one already assumed"
-          eval $(aws sts assume-role --role-arn "${{ env.ASSUME_ROLE_ARN }}" --role-session-name github_session | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
-          echo $(aws sts get-caller-identity)
 
           export IMG_VERSION=latest
           docker logout public.ecr.aws
