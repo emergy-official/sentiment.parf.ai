@@ -38,7 +38,7 @@ export const startLambda = async (isStarted: any, setIsStarted: any) => {
 }
 export const sendPredictRequest = async (text: string) => {
     try {
-        const res: any = await axios.post(`${getAPIURL()}/sentiment`, { text })
+        const res: any = await axios.post(`${getAPIURL()}/sentiment`, { text }, {timeout: 180000})
         return res?.data
     } catch (e) {
         console.error("Error", e)
