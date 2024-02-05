@@ -74,6 +74,10 @@ jobs:
           echo "Building..."
           cd api/sentiment
 
+          rm -rf artifacts mlruns
+          export FILE_PATH="553495617669467156/3a09d01665a841c2a42e2ea3a58ba05a"
+          aws s3 cp "s3://artifact-dev.sentiment.parf.ai/$FILE_PATH" ./ --recursive
+
           export IMG_VERSION=latest
           docker logout public.ecr.aws
           docker build --platform linux/amd64 -t python-scikit-learn:$IMG_VERSION .
