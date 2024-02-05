@@ -34,3 +34,6 @@ pnpm-debug.log*
 to_inspect
 output
 tmp_*
+__pycache__
+venv
+artifacts

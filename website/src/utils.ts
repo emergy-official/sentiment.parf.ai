@@ -23,6 +23,19 @@ export const getLatestFeedbacks = async (feedbackStore: any, showFeedbackLoading
     }
 }
 
+export const startLambda = async (isStarted: any, setIsStarted: any) => {
+    try {
+        if (isStarted) return;
+        const res: any = await sendPredictRequest("any text here to start the lambda to improve speed for future request")
+        if (res?.sentiment > -1) {
+            setIsStarted(true)
+        }
+    } catch (e) {
+        console.error("Error", e)
+        alert(`Error response of the API ${e.message}`)
+        return null
+    }
+}
 export const sendPredictRequest = async (text: string) => {
     try {
         const res: any = await axios.post(`${getAPIURL()}/sentiment`, { text })

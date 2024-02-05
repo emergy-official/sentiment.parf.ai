@@ -6,7 +6,7 @@ resource "aws_lambda_function" "sentiment_api" {
   image_uri     = "${aws_ecr_repository.python_scikit_learn.repository_url}:latest"
 
   timeout     = 60
-  memory_size = 256
+  memory_size = 356
   environment {
     variables = {
     }

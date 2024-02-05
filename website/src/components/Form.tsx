@@ -1,5 +1,5 @@
-import { useState } from "preact/hooks";
-import { sendPredictRequest, sendFeedbackRequest, getLatestFeedbacks, getRandomElement } from "../utils";
+import { useState, useEffect } from "preact/hooks";
+import { sendPredictRequest, sendFeedbackRequest, getLatestFeedbacks, getRandomElement, startLambda } from "../utils";
 
 import { feedbacks, showFeedbackLoading } from "./../stores/feedbacks"
 
@@ -24,6 +24,7 @@ export default function Form() {
 
   const [text, setText] = useState(getRandomElement(sampleArray));
   const [prediction, setPrediction] = useState(-1);
+  const [isStarted, setIsStarted] = useState(false);
 
   const [loadingPrediction, setLoadingPrediction] = useState(false);
 
@@ -34,7 +35,13 @@ export default function Form() {
 
   const isPositive = Math.round(prediction) == 1
 
-  const handleInput = (e:any) => {
+
+  useEffect(() => {
+    startLambda(isStarted, setIsStarted)
+  }, []);
+
+
+  const handleInput = (e: any) => {
     const target = e.target as HTMLTextAreaElement;
 
     setPrediction(-1)
@@ -52,7 +59,6 @@ export default function Form() {
       setPrediction(res.sentiment)
     }
     setLoadingPrediction(false)
-    console.log(text)
   };
 
   const handleFeedbackBtn = async (isPositive: boolean) => {
@@ -83,13 +89,15 @@ export default function Form() {
       <h1>Sentiment analyzer</h1>
       <textarea onInput={handleInput} value={text} maxLength={280}></textarea>
       {prediction == -1 ?
-
-        <button class={`predict ${loadingPrediction ? "icon-visible" : ""}`} disabled={loadingPrediction} onClick={handlePredictBtn}>
-          {/* FontAwesome Hack */}
-          {loadingPrediction ? "" : "Predict"}
-          <i class="fa-solid fa-spinner-scale fa-spin-pulse"></i>
-        </button> :
-
+        !isStarted ? 
+          <button class={`predict icon-visible flex`} disabled={true} >
+            <span>Initializing Service...</span>
+          </button> :
+          <button class={`predict ${loadingPrediction ? "icon-visible" : ""}`} disabled={loadingPrediction} onClick={handlePredictBtn}>
+            {/* FontAwesome Hack */}
+            {loadingPrediction ? "" : "Predict"}
+            <i class="fa-solid fa-spinner-scale fa-spin-pulse"></i>
+          </button> :
         <div class="prediction">
           <span class={`prediction-value`}>
             Text is {isPositive ? `positive` : `negative`} ({prediction})

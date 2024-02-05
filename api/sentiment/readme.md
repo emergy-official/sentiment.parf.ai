@@ -21,4 +21,10 @@ aws lambda update-function-code --function-name sentiment_api --image-uri "$ACCO
 
 # docker run --platform linux/amd64 -p 9000:8080 python-scikit-learn:$IMG_VERSION
 # curl "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"body": "{\"text\":\"I am so happy this is great news, congrats!\"}"}'  
+
+
+# Download the file
+rm -rf artifacts mlruns
+export FILE_PATH="553495617669467156/3a09d01665a841c2a42e2ea3a58ba05a"
+aws s3 cp "s3://artifact-dev.sentiment.parf.ai/$FILE_PATH" ./ --recursive
 ```

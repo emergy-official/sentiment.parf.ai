@@ -24,6 +24,11 @@ body {
   width: 100%;
 }
 
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
 .main-container {
   width: 100%;
   height: 100%;
@@ -45,6 +50,7 @@ body {
   align-items: center;
   height: 100vh;
 }
+
 .form {
   display: flex;
   flex: 0.8;
@@ -161,66 +167,74 @@ button.disagree {
 h2 {
   font-size: 2.5rem;
 }
+
 // Table stats
-table {  
+table {
   margin-top: 20px;
   width: 100%;
   max-width: 100%;
-  border-collapse: collapse;  
-  font-family: Arial, sans-serif;  
-}  
-  
-th, td {  
-  padding: 8px;  
-  text-align: left;  
-}  
-  
-  
-th {  
-  font-weight: bold;  
-  letter-spacing: 2px;
-}  
-  
-tr:nth-child(even) {  
-  background-color: #f9f9f9;  
-}  
-  
-td {  
-  max-width: 200px;  
-  overflow: hidden;  
-  text-overflow: ellipsis;  
-  transition: max-width 0.3s ease;  
-}  
-tfoot td {  
-  padding-top: 8px;  
-  font-weight: bold;  
-  white-space: normal;  
-  max-width: none;  
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
 }
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+
+th {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+td {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: max-width 0.3s ease;
+}
+
+tfoot td {
+  padding-top: 8px;
+  font-weight: bold;
+  white-space: normal;
+  max-width: none;
+}
+
 th {
   background-color: rgba(220, 220, 220, .2);
 }
+
 tr {
-  border: 1px solid #f1f5fa;  
+  border: 1px solid #f1f5fa;
 }
+
 tr.correct {
   background: rgba(53, 219, 178, .2);
 }
+
 tr.incorrect {
   background: rgba(220, 94, 94, .2);
 }
-  
-@media (max-width: 600px) {  
-  table {  
-    font-size: 12px;  
-  }  
-}  
+
+@media (max-width: 600px) {
+  table {
+    font-size: 12px;
+  }
+}
 
 .pointer {
   cursor: pointer;
 }
 
-.loading svg, .loading i{
+.loading svg,
+.loading i {
   font-size: 40px;
   display: none;
 }
@@ -229,6 +243,7 @@ tr.incorrect {
 .loading .icon-visible i {
   display: inherit !important;
 }
+
 a.github {
   display: block;
   text-align: center;
