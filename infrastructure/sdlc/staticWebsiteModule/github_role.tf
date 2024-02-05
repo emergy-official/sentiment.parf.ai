@@ -47,7 +47,7 @@ resource "aws_iam_role_policy" "s3_pull" {
         "Effect" : "Allow",
         "Action" : [
           "s3:GetObject",
-          "s3:ListObjectsV2"
+          "s3:ListBucket"
         ],
         "Resource" : aws_s3_bucket.artifacts[count.index].arn
       }
