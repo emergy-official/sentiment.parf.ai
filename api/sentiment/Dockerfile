@@ -2,7 +2,7 @@
 FROM public.ecr.aws/lambda/python:3.11
 # Copy requirements.txt
 RUN echo "scikit-learn==1.4.0" > ${LAMBDA_TASK_ROOT}/requirements.txt
-RUN echo "tensorflow" > ${LAMBDA_TASK_ROOT}/requirements.txt
+RUN echo "tf-nightly==2.16.0.dev20240206" > ${LAMBDA_TASK_ROOT}/requirements.txt
 
 # Install the specified packages
 RUN pip install -r requirements.txt
