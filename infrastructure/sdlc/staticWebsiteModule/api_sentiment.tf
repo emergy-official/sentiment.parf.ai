@@ -5,8 +5,8 @@ resource "aws_lambda_function" "sentiment_api" {
   role          = aws_iam_role.lambda_exec_sentiment_api.arn
   image_uri     = "${aws_ecr_repository.python_scikit_learn.repository_url}:latest"
 
-  timeout     = 60
-  memory_size = 356
+  timeout     = 120
+  memory_size = 1024
   environment {
     variables = {
     }

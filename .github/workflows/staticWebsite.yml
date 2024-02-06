@@ -16,7 +16,6 @@ env:
   ASSUME_ROLE_ARN_DEV: arn:aws:iam::267341338450:role/github-dev--sentiment
   ASSUME_ROLE_ARN_PROD: arn:aws:iam::258317103062:role/github-prod--sentiment
   WEBSITE_FOLDER: website
-  LAMBDA_FUNCTION: sentiment_api
 
 # Define permissions required for the action
 permissions:
@@ -30,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
 
     # Prevent a publish loop with auto and GitHub Actions.
-    if: "contains(github.event.head_commit.message, 'deploy:sentiment')"
+    if: "contains(github.event.head_commit.message, 'deploy:website')"
 
     # Define the list of steps that the action will go through
     steps:
@@ -66,34 +65,6 @@ jobs:
           else
             export ACCOUNT_ID=""
           fi
-      - name: Build & Push Docker to AWS ECR
-        run: |
-
-          echo "Assume the proper AWS Account from the one already assumed"
-          eval $(aws sts assume-role --role-arn "${{ env.ASSUME_ROLE_ARN }}" --role-session-name github_session | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
-          echo $(aws sts get-caller-identity)
-
-          echo "Building..."
-          cd api/sentiment
-
-          rm -rf artifacts mlruns
-          export FILE_PATH="553495617669467156/3a09d01665a841c2a42e2ea3a58ba05a"
-          aws s3 cp "s3://artifact-dev.sentiment.parf.ai/$FILE_PATH" ./ --recursive
-
-          export IMG_VERSION=latest
-          docker logout public.ecr.aws
-          docker build --platform linux/amd64 -t python-scikit-learn:$IMG_VERSION .
-
-          echo "Login to ECR"
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/
-
-          docker tag python-scikit-learn:$IMG_VERSION "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/python-scikit-learn:latest
-          echo "Push to ECR"
-          docker push "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/python-scikit-learn:latest
-
-          echo "Update lambda with new ECR Image"
-          aws lambda update-function-code --function-name $LAMBDA_FUNCTION --image-uri "${{ env.ACCOUNT_ID }}".dkr.ecr.us-east-1.amazonaws.com/python-scikit-learn:latest --region us-east-1
-
       - name: Update the robots.txt and astro.config.mjs
         run: |
           # Replace DOMAIN_NAME with the appropriate branch and repository information
