@@ -6,6 +6,7 @@ export DEV_ACCOUNT_ID=267341338450
 export PROD_ACCOUNT_ID=258317103062
 export ACCOUNT_ID=$DEV_ACCOUNT_ID
 
+
 eval $(aws sts assume-role --profile 818028758633 --role-arn "arn:aws:iam::"$ACCOUNT_ID":role/provision" --role-session-name AWSCLI-Session | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)\n"')
 
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "$ACCOUNT_ID".dkr.ecr.us-east-1.amazonaws.com/
