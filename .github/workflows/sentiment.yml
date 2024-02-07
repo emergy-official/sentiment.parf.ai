@@ -52,7 +52,19 @@ jobs:
         run: |
           cd api/sentiment
           pip install -r requirements.txt
-          
+         
+      - name: Prepare AWS
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/dev" ]; then
+            echo "ASSUME_ROLE_ARN=$ASSUME_ROLE_ARN_DEV" >> $GITHUB_ENV
+            echo "ACCOUNT_ID=$DEV_ACCOUNT_ID" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" = "refs/heads/prod" ]; then
+            echo "ASSUME_ROLE_ARN=$ASSUME_ROLE_ARN_PROD" >> $GITHUB_ENV
+            echo "ACCOUNT_ID=$PROD_ACCOUNT_ID" >> $GITHUB_ENV
+          else
+            export ACCOUNT_ID=""
+          fi
+           
       - name: Download artifacts
         run: |
           echo "Assume the proper AWS Account from the one already assumed"
