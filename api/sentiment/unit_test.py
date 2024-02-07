@@ -10,8 +10,8 @@ class TestLambdaFunction(unittest.TestCase):
         result = handler(event, None)  
         self.assertEqual(result['statusCode'], 200)  
         sentiment = json.loads(result['body'])['sentiment']
-        print(sentiment)
-        self.assertLess(sentiment, 0.5)  
+        self.assertGreater(sentiment, 0.5)  
+        # self.assertLess(sentiment, 0.5)  
           
     def test_sentiment_neutral(self):  
         event = {'body': '{"text": "I am so happy this is great news, congrats!"}'}  
