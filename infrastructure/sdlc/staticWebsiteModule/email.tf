@@ -13,9 +13,9 @@ resource "aws_lambda_function" "email_alert" {
   handler       = "sendEmailAlert.handler"
   role          = aws_iam_role.lambda_exec_email.arn
   runtime       = "nodejs20.x"
-  filename      = data.archive_file.lambda_backend_zip.output_path
+  filename      = data.archive_file.lambda_feedback_zip.output_path
   # Do not update the lambda, it will be done by Github CI/CD
-  source_code_hash = data.archive_file.lambda_backend_zip.output_base64sha256
+  source_code_hash = data.archive_file.lambda_feedback_zip.output_base64sha256
   layers           = [aws_lambda_layer_version.lambda_feedback_api_lambda_layer.arn]
 
   timeout     = 10

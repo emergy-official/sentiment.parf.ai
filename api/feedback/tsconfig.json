@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ES2018", // Or another version that Lambda supports  
         "module": "CommonJS",
-        "outDir": "./../dist/backend-lambda",
+        "outDir": "./../dist/feedback-lambda",
         "rootDir": "./",
         "strict": true,
         "esModuleInterop": true

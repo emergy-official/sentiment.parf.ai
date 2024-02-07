@@ -91,7 +91,7 @@ export default function Form() {
       {prediction == -1 ?
         !isStarted ? 
           <button class={`predict icon-visible flex`} disabled={true} >
-            <span>Initializing Service... (up to 30sec to start)</span>
+            <span>Initializing Service... (up to 1min to start)</span>
           </button> :
           <button class={`predict ${loadingPrediction ? "icon-visible" : ""}`} disabled={loadingPrediction} onClick={handlePredictBtn}>
             {/* FontAwesome Hack */}

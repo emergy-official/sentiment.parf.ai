@@ -60,12 +60,12 @@ eval $(aws sts assume-role --profile $INFRA_ACCOUNT_ID --role-arn "arn:aws:iam::
 aws sts get-caller-identity
 
 # Now you can run the script and act as it's from the DEV environment
-cd api/backend
+cd api/feedback
 tsx localTest.ts
 ```
 
 To prepare the lambda locally for terraform:
 ```
-cd api/backend
+cd api/feedback
 npm run prepare:all
 ```

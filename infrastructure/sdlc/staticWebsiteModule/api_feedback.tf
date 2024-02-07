@@ -4,9 +4,9 @@ resource "aws_lambda_function" "feedback_api" {
   handler       = "index.handler"
   role          = aws_iam_role.lambda_exec_feedback_api.arn
   runtime       = "nodejs20.x"
-  filename      = data.archive_file.lambda_backend_zip.output_path
+  filename      = data.archive_file.lambda_feedback_zip.output_path
   # Do not update the lambda, it will be done by Github CI/CD
-  source_code_hash = data.archive_file.lambda_backend_zip.output_base64sha256
+  source_code_hash = data.archive_file.lambda_feedback_zip.output_base64sha256
   layers           = [aws_lambda_layer_version.lambda_feedback_api_lambda_layer.arn]
 
   timeout     = 10
@@ -124,10 +124,10 @@ resource "aws_lambda_permission" "api_gateway_feedback" {
 }
 
 # Code of the lambda functions
-data "archive_file" "lambda_backend_zip" {
+data "archive_file" "lambda_feedback_zip" {
   type        = "zip"
-  source_dir  = "${var.api_path}/dist/backend-lambda"
-  output_path = "${var.api_path}/dist/backend-lambda.zip"
+  source_dir  = "${var.api_path}/dist/feedback-lambda"
+  output_path = "${var.api_path}/dist/feedback-lambda.zip"
 }
 
 

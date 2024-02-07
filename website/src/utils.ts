@@ -24,19 +24,34 @@ export const getLatestFeedbacks = async (feedbackStore: any, showFeedbackLoading
 }
 
 export const startLambda = async (isStarted: any, setIsStarted: any) => {
-    try {
-        if (isStarted) return;
-        const res: any = await sendPredictRequest("any text here to start the lambda to improve speed for future request")
-        if (res?.sentiment > -1) {
-            setIsStarted(true)
+    if (isStarted) return;
+
+    let attempt = 0;
+    const maxAttempts = 5;
+
+    while (attempt < maxAttempts) {
+        try {
+            console.log(`Attempt ${attempt}`)
+            const res: any = await sendPredictRequest("any text here to start the lambda to improve speed for future request", true);
+            if (res?.sentiment > -1) {
+                setIsStarted(true);
+                return;  // Successful, exit the function  
+            }
+        } catch (e) {
+
+            console.error(`Attempt ${attempt + 1} failed. Error:`, e);
+            if (attempt === maxAttempts - 1) {
+                alert(`Cannot initialize the service: ${e.message}`);
+            }
+
         }
-    } catch (e) {
-        console.error("Error", e)
-        alert(`Error response of the API ${e.message}`)
-        return null
+
+        attempt++;
     }
-}
-export const sendPredictRequest = async (text: string) => {
+    return null;
+};
+
+export const sendPredictRequest = async (text: string, throwError: boolean = false) => {
     try {
         const res: any = await axios({
             method: "post",
@@ -46,9 +61,13 @@ export const sendPredictRequest = async (text: string) => {
         })
         return res?.data
     } catch (e) {
-        console.error("Error", e)
-        alert(`Error response of the API ${e.message}`)
-        return null
+        if (throwError) {
+            throw e
+        } else {
+            console.error("Error", e)
+            alert(`Error response of the API ${e.message}`)
+            return null
+        }
     }
 }
 
