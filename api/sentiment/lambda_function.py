@@ -1,7 +1,9 @@
 import pickle
 import json
 import numpy as np
-  
+
+from tensorflow import keras
+
 with open("./artifacts/tokenizer.pkl", "rb") as file:  
     tokenizer = pickle.load(file)
   
