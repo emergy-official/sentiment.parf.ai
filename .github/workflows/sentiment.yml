@@ -50,7 +50,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd api/sentiment
-          python -m unittest unit_test.py 
+          python install -r requirements.txt
           
       - name: Unit test python
         run: |
