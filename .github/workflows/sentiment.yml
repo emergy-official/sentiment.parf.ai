@@ -42,14 +42,16 @@ jobs:
           role-to-assume: arn:aws:iam::818028758633:role/github_actions_role
           aws-region: ${{ env.AWS_REGION }}
           
-      - name: Install python dependencies
+      - name: Configure python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Install dependencies
         run: |
           cd api/sentiment
-          pip install -r requirements.txt
-
+          python -m unittest unit_test.py 
+          
       - name: Unit test python
         uses: actions/setup-python@v5
         with:
