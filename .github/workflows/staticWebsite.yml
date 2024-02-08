@@ -48,12 +48,12 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install Node.js module dependencies - website
-        run: |
-          npm config set "@fortawesome:registry" https://npm.fontawesome.com/
-          npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONT_AWESOME_TOKEN }}
-          cd $WEBSITE_FOLDER && npm install
+  
+      # - name: Install Node.js module dependencies - website
+      #   run: |
+      #     npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+      #     npm config set "//npm.fontawesome.com/:_authToken" ${{ secrets.FONT_AWESOME_TOKEN }}
+      #     cd $WEBSITE_FOLDER && npm install
 
       - name: Install Node.js module dependencies - feedback api
         run: |

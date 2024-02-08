@@ -27,12 +27,13 @@ export const startLambda = async (isStarted: any, setIsStarted: any) => {
     if (isStarted) return;
 
     let attempt = 0;
-    const maxAttempts = 5;
+    const maxAttempts = 10;
 
     while (attempt < maxAttempts) {
         try {
             console.log(`Attempt ${attempt}`)
-            const res: any = await sendPredictRequest("any text here to start the lambda to improve speed for future request", true);
+            const timeout = attempt === 0 ? 180000 : 8000;
+            const res: any = await sendPredictRequest("any text here to start the lambda to improve speed for future request", true, timeout);
             if (res?.sentiment > -1) {
                 setIsStarted(true);
                 return;  // Successful, exit the function  
@@ -51,13 +52,13 @@ export const startLambda = async (isStarted: any, setIsStarted: any) => {
     return null;
 };
 
-export const sendPredictRequest = async (text: string, throwError: boolean = false) => {
+export const sendPredictRequest = async (text: string, throwError: boolean = false, timeout: int = 180000) => {
     try {
         const res: any = await axios({
             method: "post",
             url: `${getAPIURL()}/sentiment`,
             data: { text },
-            timeout: 180000
+            timeout
         })
         return res?.data
     } catch (e) {
