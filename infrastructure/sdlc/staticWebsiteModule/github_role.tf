@@ -68,7 +68,8 @@ resource "aws_iam_role_policy" "allow_dynamobb" {
         "Effect" : "Allow",
         "Action" : [
           "dynamodb:BatchWriteItem",
-        "dynamodb:Query", ],
+          "dynamodb:Query"
+        ],
         "Resource" : [
           aws_dynamodb_table.feedback.arn
         ]
