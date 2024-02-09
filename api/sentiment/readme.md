@@ -26,7 +26,7 @@ aws lambda update-function-code --function-name sentiment_api --image-uri "$ACCO
 
 # Download the file
 rm -rf artifacts
-export FILE_PATH="514556832169062238/00f408da5ef6456785bb0edc658e15b5"
+export FILE_PATH="657967221979013195/2f2f781caad24db9bbc386eef1fbde7b"
 aws s3 cp "s3://artifact-dev.sentiment.parf.ai/$FILE_PATH" ./ --recursive
 
 # export FILE_PATH="553495617669467156/3a09d01665a841c2a42e2ea3a58ba05a"

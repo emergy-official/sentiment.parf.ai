@@ -35,5 +35,4 @@ def comment_to_vec(comment, model):
 
 print(predict("I am so sad, this is very bad news, terrible!", model, tokenizer_w2vec))
 print(predict("I am so happy, this is very good news, congrats!", model, tokenizer_w2vec))
-
-DO IT PER WORD!
+print(predict("Our newsfeed is full of sadness today as this absolutely #devastating news broke.", model, tokenizer_w2vec))
