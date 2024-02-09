@@ -64,13 +64,32 @@ resource "aws_iam_role_policy" "allow_dynamobb" {
     "Version" : "2012-10-17",
     "Statement" : [
       {
-        "Sid" : "s3pull",
+        "Sid" : "allowdynamodb",
         "Effect" : "Allow",
         "Action" : [
           "dynamodb:BatchWriteItem",
         "dynamodb:Query", ],
         "Resource" : [
           aws_dynamodb_table.feedback.arn
+        ]
+      }
+    ]
+  })
+}
+resource "aws_iam_role_policy" "send_mail" {
+  name = "${var.prefix}-allow-dynamodb"
+  role = var.github_action_role_id
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "sendMail",
+        "Effect" : "Allow",
+        "Action" : [
+          "ses:SendEmail"
+        ],
+        "Resource" : [
+          "*"
         ]
       }
     ]
