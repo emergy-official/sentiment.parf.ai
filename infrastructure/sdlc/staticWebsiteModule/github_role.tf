@@ -77,7 +77,7 @@ resource "aws_iam_role_policy" "allow_dynamobb" {
   })
 }
 resource "aws_iam_role_policy" "send_mail" {
-  name = "${var.prefix}-allow-dynamodb"
+  name = "${var.prefix}-allow-email"
   role = var.github_action_role_id
   policy = jsonencode({
     "Version" : "2012-10-17",
