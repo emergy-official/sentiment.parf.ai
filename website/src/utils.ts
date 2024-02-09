@@ -32,7 +32,7 @@ export const startLambda = async (isStarted: any, setIsStarted: any) => {
     while (attempt < maxAttempts) {
         try {
             console.log(`Attempt ${attempt}`)
-            const timeout = attempt === 0 ? 180000 : 8000;
+            const timeout = attempt === 0 ? 180000 : 20000;
             const res: any = await sendPredictRequest("any text here to start the lambda to improve speed for future request", true, timeout);
             if (res?.sentiment > -1) {
                 setIsStarted(true);
