@@ -86,7 +86,8 @@ resource "aws_iam_role_policy" "send_mail" {
         "Sid" : "sendMail",
         "Effect" : "Allow",
         "Action" : [
-          "ses:SendEmail"
+          "ses:SendEmail",
+          "ses:SendRawEmail"
         ],
         "Resource" : [
           "*"
