@@ -1,5 +1,5 @@
 # Define the name of the GitHub Action
-name: Continuous Integration
+name: Deploy Sentiment API
 
 # Define the events that will trigger the action
 on:
