@@ -52,7 +52,26 @@ resource "aws_iam_role_policy" "s3_pull" {
         "Resource" : [
           aws_s3_bucket.artifacts[count.index].arn,
           "${aws_s3_bucket.artifacts[count.index].arn}/*"
-          ]
+        ]
+      }
+    ]
+  })
+}
+resource "aws_iam_role_policy" "allow_dynamobb" {
+  name = "${var.prefix}-allow-dynamodb"
+  role = var.github_action_role_id
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "s3pull",
+        "Effect" : "Allow",
+        "Action" : [
+          "dynamodb:BatchWriteItem",
+        "dynamodb:Query", ],
+        "Resource" : [
+          aws_dynamodb_table.feedback.arn
+        ]
       }
     ]
   })
