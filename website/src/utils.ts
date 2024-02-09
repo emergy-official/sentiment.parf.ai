@@ -52,7 +52,7 @@ export const startLambda = async (isStarted: any, setIsStarted: any) => {
     return null;
 };
 
-export const sendPredictRequest = async (text: string, throwError: boolean = false, timeout: int = 180000) => {
+export const sendPredictRequest = async (text: string, throwError: boolean = false, timeout: number = 180000) => {
     try {
         const res: any = await axios({
             method: "post",
