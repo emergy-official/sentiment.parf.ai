@@ -24,7 +24,7 @@ permissions:
 
 # Define the jobs to be executed in the action
 jobs:
-  continuous-integrations:
+  sentiment-api:
     # Define the operating system the action will run on
     runs-on: ubuntu-latest
 
