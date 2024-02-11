@@ -1,20 +1,22 @@
 // index.ts  
 import { getFeedbacks } from './getFeedbacks';
-import { helperFunction, returnData } from './helper';
+import { returnData } from './helper';
 import { submitFeedback } from './submitFeedback';
 
-export async function handler(event: any, context: any) {
+// Incoming lambda request
+export async function handler(event: any, _: any) {
   console.log("INPUT", event);
 
+  // POST method to submit the feedback
   if (event.httpMethod == "POST") {
-    // Submit feedback
     const params = JSON.parse(event.body);
     return submitFeedback(params)
   } else if (event.httpMethod == "GET") {
-    // Get latest feedback
+    // GET method to retrieve the latest feedback
     return getFeedbacks()
   }
 
+  // Something else that should not happen.
   return returnData({
     message: "Nothing to say"
   })

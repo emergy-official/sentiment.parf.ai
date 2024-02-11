@@ -9,7 +9,6 @@ import {
 import { getFeedbacks } from "./getFeedbacks";
 
 export const handler = async () => {
-
   // I'm getting the last feedbacks to send the negative one by email.
   // Here I'm not filtering by key positive/negative because it will cost me money to maintain the secondary index
   // which I haven't created, so since it's a test project, I'm returning the last 20 assuming I'll get the 5 negative within 5 minutes.

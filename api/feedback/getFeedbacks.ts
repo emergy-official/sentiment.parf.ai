@@ -3,11 +3,13 @@ import {
     QueryCommand,
 } from "@aws-sdk/client-dynamodb";
 
-import { dynamoDBClient, cloudWatchClient, wait, returnData } from "./helper"
+import { dynamoDBClient, returnData } from "./helper"
 
+// Get the latest 20 feedbacks
 export const getFeedbacks = async () => {
     const tableName = process.env.TABLE_NAME || "sentiment-feedback";
 
+    // DynamoDB Query
     const command = new QueryCommand({
         "TableName": tableName,
         "Limit": 20,

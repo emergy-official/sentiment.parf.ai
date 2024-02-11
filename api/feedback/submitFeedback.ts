@@ -5,9 +5,9 @@ import {
 import {
   PutMetricDataCommand,
 } from "@aws-sdk/client-cloudwatch";
-import { randomUUID } from "crypto";
 import { dynamoDBClient, cloudWatchClient, wait, returnData } from "./helper"
 
+// Sent the metrics to cloudwatch
 const sendFeedbackMetric = async (isPositive: boolean = false) => {
   const params: any = {
     MetricData: [
@@ -41,6 +41,7 @@ type SUBMIT_FEEDBACK_INPUT = {
   feedback: boolean
 }
 
+// Create a new feedback to DynamoDB
 export const submitFeedback = async ({ text, sentiment, feedback }: SUBMIT_FEEDBACK_INPUT) => {
   const input:any = {
     RequestItems: {
